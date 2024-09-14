@@ -14,8 +14,6 @@
 <body>
     <c:if test="${param.result == 'error'}">
         <h1>로그인 에러</h1>
-        <h2>${loginInfo}</h2>
-        <h3>${loginInfo.mname}</h3>
     </c:if>
 
     <form action="/login" method="POST">
