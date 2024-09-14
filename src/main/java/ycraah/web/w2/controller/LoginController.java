@@ -28,7 +28,7 @@ public class LoginController extends HttpServlet {
     String str = mid+mpw;
 
     HttpSession session = req.getSession();
-    session.setAttribute("LoginInfo", str);
+    session.setAttribute("loginInfo", str);
     resp.sendRedirect("/todo/list");
   }
 }

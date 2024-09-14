@@ -30,7 +30,7 @@ public class TodoRegisterController extends HttpServlet {
       return;
     }
 
-    if(session.getAttribute("LoginInfo") == null){
+    if(session.getAttribute("loginInfo") == null){
       log.info("로그인한 정보가 없는 사용자");
       resp.sendRedirect("/login");
       return;
