@@ -42,7 +42,6 @@ public class TodoRegisterController extends HttpServlet {
   @Override
   protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
     log.info("/todo/register(POST)");
-    req.setCharacterEncoding("UTF-8");
     TodoDTO todoDTO = TodoDTO.builder()
         .title(req.getParameter("title"))
         .dueDate(LocalDate.parse(req.getParameter("dueDate"), DATEFORMATTER))
