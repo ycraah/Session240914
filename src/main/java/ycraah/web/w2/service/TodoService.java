@@ -1,14 +1,13 @@
-package ycraah.web.w1.service;
+package ycraah.web.w2.service;
 
 import lombok.extern.log4j.Log4j2;
 import org.modelmapper.ModelMapper;
-import ycraah.web.w1.dao.TodoDAO;
-import ycraah.web.w1.domain.TodoVO;
-import ycraah.web.w1.dto.TodoDTO;
-import ycraah.web.w1.util.MapperUtil;
+import ycraah.web.w2.dao.TodoDAO;
+import ycraah.web.w2.domain.TodoVO;
+import ycraah.web.w2.dto.TodoDTO;
+import ycraah.web.w2.util.MapperUtil;
 
 import java.sql.SQLException;
-import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 

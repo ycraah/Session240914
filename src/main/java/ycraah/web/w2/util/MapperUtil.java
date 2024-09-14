@@ -1,4 +1,4 @@
-package ycraah.web.w1.util;
+package ycraah.web.w2.util;
 
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;

@@ -1,4 +1,4 @@
-package ycraah.web.w1.dto;
+package ycraah.web.w2.dto;
 
 import lombok.*;
 

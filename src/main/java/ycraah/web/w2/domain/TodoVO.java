@@ -1,4 +1,4 @@
-package ycraah.web.w1.domain;
+package ycraah.web.w2.domain;
 
 import lombok.*;
 

@@ -1,8 +1,8 @@
-package ycraah.web.w1.dao;
+package ycraah.web.w2.dao;
 
 import lombok.Cleanup;
 import lombok.extern.log4j.Log4j2;
-import ycraah.web.w1.domain.TodoVO;
+import ycraah.web.w2.domain.TodoVO;
 
 import java.sql.*;
 import java.util.ArrayList;

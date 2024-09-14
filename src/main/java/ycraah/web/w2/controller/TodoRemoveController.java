@@ -1,7 +1,7 @@
-package ycraah.web.w1.controller;
+package ycraah.web.w2.controller;
 
 import lombok.extern.log4j.Log4j2;
-import ycraah.web.w1.service.TodoService;
+import ycraah.web.w2.service.TodoService;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;

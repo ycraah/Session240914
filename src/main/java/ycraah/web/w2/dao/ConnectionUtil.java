@@ -1,4 +1,4 @@
-package ycraah.web.w1.dao;
+package ycraah.web.w2.dao;
 
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;

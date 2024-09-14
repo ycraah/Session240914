@@ -1,57 +1,52 @@
-package ycraah.web.w1.controller;
+package ycraah.web.w2.controller;
 
 import lombok.extern.log4j.Log4j2;
-import ycraah.web.w1.dto.TodoDTO;
-import ycraah.web.w1.service.TodoService;
+import ycraah.web.w2.dto.TodoDTO;
+import ycraah.web.w2.service.TodoService;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 @Log4j2
-@WebServlet("/todo/register")
-public class TodoRegisterController extends HttpServlet {
+@WebServlet("/todo/modify")
+public class TodoModifyController extends HttpServlet {
   private final DateTimeFormatter DATEFORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
   @Override
   protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-    log.info("/todo/register(GET)");
-    HttpSession session = req.getSession();
-
-    if(session.isNew()){
-      log.info("JSESSIONID 쿠키가 새로 만들어진 사용자");
-      resp.sendRedirect("/login");
-      return;
+    try {
+      Long tno = Long.parseLong(req.getParameter("tno"));
+      TodoDTO todoDTO = TodoService.INSTANCE.get(tno);
+      req.setAttribute("todoDTO", todoDTO);
+      req.getRequestDispatcher("/todo/modify.jsp").forward(req, resp);
+    } catch(Exception e){
+      log.error(e.getMessage());
+      throw new ServletException("modify(GET) 에러");
     }
-
-    if(session.getAttribute("loginInfo") == null){
-      log.info("로그인한 정보가 없는 사용자");
-      resp.sendRedirect("/login");
-      return;
-    }
-
-    req.getRequestDispatcher("/todo/register.jsp").forward(req, resp);
   }
 
   @Override
   protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-    log.info("/todo/register(POST)");
-    req.setCharacterEncoding("UTF-8");
+    req.setCharacterEncoding("utf-8");
+    log.info("todo/modify(POST)");
+    String finishedStr = req.getParameter("finished");
     TodoDTO todoDTO = TodoDTO.builder()
+        .tno(Long.parseLong(req.getParameter("tno")))
         .title(req.getParameter("title"))
         .dueDate(LocalDate.parse(req.getParameter("dueDate"), DATEFORMATTER))
+        .finished(finishedStr != null && finishedStr.equals("on"))
         .build();
     log.info(todoDTO);
-    try{
-      TodoService.INSTANCE.register(todoDTO);
-    } catch (Exception e) {
+    try {
+      TodoService.INSTANCE.modify(todoDTO);
+    } catch (SQLException e) {
       e.printStackTrace();
     }
     resp.sendRedirect("/todo/list");
