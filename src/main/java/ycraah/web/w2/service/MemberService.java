@@ -30,4 +30,10 @@ public enum MemberService {
   public void updateUuid(String mid, String uuid) throws SQLException {
     dao.updateUuid(mid, uuid);
   }
+  
+  public MemberDTO getByUUID(String uuid) throws SQLException {
+    MemberVO vo = dao.selectUUID(uuid);
+    MemberDTO memberDTO = mapper.map(vo, MemberDTO.class);
+    return memberDTO;
+  }
 }
