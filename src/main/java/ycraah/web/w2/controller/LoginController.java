@@ -7,12 +7,10 @@ import ycraah.web.w2.service.MemberService;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
+import javax.servlet.http.*;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.UUID;
 
 @WebServlet("/login")
 @Log4j2
@@ -28,9 +26,23 @@ public class LoginController extends HttpServlet {
     log.info("/Login(Post)");
     String mid = req.getParameter("mid");
     String mpw = req.getParameter("mpw");
+    String auto = req.getParameter("auto");
+    boolean rememberMe = auto != null && auto.equals("on");
 
     try {
       MemberDTO memberDTO = MemberService.INSTANCE.login(mid,mpw);
+      if(rememberMe){
+        //난수 생성 ex) 2b946c7f-abd1-4aef-a440-5d7670e4db75
+        String uuid = UUID.randomUUID().toString();
+        MemberService.INSTANCE.updateUuid(mid, uuid);
+        memberDTO.setUuid(uuid);
+
+        Cookie rememberCookie = new Cookie("remember-me", uuid);
+        rememberCookie.setPath("/");
+        rememberCookie.setMaxAge(60*60*24*7); //유효기간 일주일
+        resp.addCookie(rememberCookie);
+      }
+
       HttpSession session = req.getSession();
       session.setAttribute("loginInfo", memberDTO);
       resp.sendRedirect("/todo/list");

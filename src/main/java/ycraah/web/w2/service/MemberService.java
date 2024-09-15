@@ -26,4 +26,8 @@ public enum MemberService {
     MemberDTO dto = mapper.map(vo, MemberDTO.class);
     return dto;
   }
+
+  public void updateUuid(String mid, String uuid) throws SQLException {
+    dao.updateUuid(mid, uuid);
+  }
 }

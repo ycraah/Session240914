@@ -19,6 +19,7 @@
     <form action="/login" method="POST">
         <input type="text" name="mid">
         <input type="text" name="mpw">
+        <p style="display:inline-block">자동로그인</p><input type="checkbox" name="auto">
         <button type="submit">로그인</button>
         <button type="reset">초기화</button>
     </form>
